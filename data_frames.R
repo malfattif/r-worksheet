@@ -1,22 +1,36 @@
-setwd(paste(getwd(), "/r-worksheet", sep = "")) # SETING WORK DIRECTORY
+# LEITURA DE ARQUIVOS
+# UNIFICAÇÃO EM UM DATAFRAME
+# LEITURA DE DATAFRAMES
+# COMEÇAREMOS EM ORDEM DESCENDENTE POR ANO (TEORICAMENTE TEM MAIS DADOS)
+# VARIÁVEIS CATEGORICAS
+# APRENDIZADO SUPERVISIONADO OU NÃO, REGRAS DE ASSOCIAÇÃO!? 
+
+setwd(paste(getwd(), "/r-worksheet/votacao", sep = ""))  # SETING WORK DIRECTORY
 getwd() # GET WORKING DIRECTORY
 
-
-#acreElections = read.csv("votacao/votacao_candidato_munzona_2016_AC.csv", sep = ";") # import CSV
-
-setwd(paste(getwd(), "/votacao", sep = "")) 
+#acreElections = read.csv("votacao_candidato_munzona_2016_AC.csv", sep = ";") # import CSV
 TSEFiles = list.files(path = ".", pattern = "*.csv|*.txt")  #GET ALL TXT AN CSV FILES
-tables <- lapply(TSEFiles, read.csv, sep = ";", header=TRUE, stringsAsFactors=FALSE, fileEncoding="latin1")
 
-mydata1 = read.csv("example.csv") # import CSV
-mydata2 = read.csv("example.csv")
+for (file in TSEFiles){
+  # if the merged dataset doesn't exist, create it
+  if (!exists("dataset")){
+    dataset <- read.csv(file, sep=";", header=TRUE, stringsAsFactors=FALSE, fileEncoding="latin1")
+  }
+  
+  # if the merged dataset does exist, append to it
+  if (exists("dataset")){
+    temp_dataset <- read.csv(file, sep=";", header=TRUE, stringsAsFactors=FALSE, fileEncoding="latin1")
+    dataset<-rbind(dataset, temp_dataset)
+    rm(temp_dataset)
+  }
+}
 
-head(mydata1) # first 5 rows of data frame
-tail(mydata1) # last 5 rows of data frame
-nrow(mydata1) # number of rows of data frame
+nrow(dataset) # number of rows of data frame
+head(dataset[1, 1:10]) # first 5 rows of data frame
+tail(dataset[1, 1:10]) # last 5 rows of data frame
 
-myfulldata = rbind(mydata1, mydata2) # append files 
-print(nrow(myfulldata))
+unique(dataset["SG_UF"]) # SHOW ALL UF
+summary(dataset["QT_VOTOS_NOMINAIS"]) # SHOW SUMMARY OF VOTES
 
 install.packages("fastDummies") # install dummies
 library(fastDummies) # import dummies
