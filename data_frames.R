@@ -1,3 +1,4 @@
+# WORK DIRECTORY 
 # LEITURA DE ARQUIVOS
 # UNIFICAÇÃO EM UM DATAFRAME
 # LEITURA DE DATAFRAMES
@@ -10,6 +11,7 @@ getwd() # GET WORKING DIRECTORY
 
 #acreElections = read.csv("votacao_candidato_munzona_2016_AC.csv", sep = ";") # import CSV
 TSEFiles = list.files(path = ".", pattern = "*.csv|*.txt")  #GET ALL TXT AN CSV FILES
+
 
 for (file in TSEFiles){
   # if the merged dataset doesn't exist, create it
@@ -32,6 +34,12 @@ tail(dataset[1, 1:10]) # last 5 rows of data frame
 unique(dataset["SG_UF"]) # SHOW ALL UF
 summary(dataset["QT_VOTOS_NOMINAIS"]) # SHOW SUMMARY OF VOTES
 
+
+# EXCLUDE HIGH CORRELATIONS COLUMNS SG_UF, NM_MUNICIPIO, NM_PARTIDO
+excludeColumns <- names(dataset) %in% c("SG_UF", "NM_MUNICIPIO", "NM_PARTIDO") 
+newDataset <- dataset[!excludeColumns]
+
+
 install.packages("fastDummies") # install dummies
 library(fastDummies) # import dummies
 
@@ -41,6 +49,8 @@ dummies = fastDummies::dummy_cols(categoricalDataFrame)
 
 #dummie variables
 print(dummies)
+
+#
 
 # ANÁLISE DE CORRESPONDÊNCIA MULTIPLA (MCA)
 #install.packages(c("FactoMineR", "factoextra"), dependencies=TRUE)
