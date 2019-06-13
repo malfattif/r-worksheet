@@ -40,11 +40,14 @@ summary(dataset["QT_VOTOS_NOMINAIS"]) # SHOW SUMMARY OF VOTES
 excludeColumns <- names(dataset) %in% c("SG_UF", "NM_MUNICIPIO", "NM_PARTIDO") 
 newDataset <- dataset[!excludeColumns]
 
-# install.packages("klaR")
-# library(klaR)
-#categoricalColumns = excludeColumns <- names(dataset) %in% c("CD_TIPO_ELEICAO", "CD_MUNICIPIO", "DT_GERACAO", "SQ_CANDIDATO", "HH_GERACAO", "ANO_ELEICAO", "NR_TURNO", "CD_ELEICAO", "SG_UE", "NR_ZONA", "CD_CARGO", "CD_SITUACAO_CANDIDATURA", "CD_DETALHE_SITUACAO_CAND", "NR_PARTIDO", "SQ_COLIGACAO", "CD_SIT_TOT_TURNO", "QT_VOTOS_NOMINAIS") 
-#categoricalDataSet  <- dataset[!categoricalColumns]
+install.packages("klaR")  
+library(klaR)
+categoricalColumns = excludeColumns <- names(dataset) %in% c("CD_TIPO_ELEICAO", "CD_MUNICIPIO", "DT_GERACAO", "SQ_CANDIDATO", "HH_GERACAO", "ANO_ELEICAO", "NR_TURNO", "CD_ELEICAO", "SG_UE", "NR_ZONA", "CD_CARGO", "CD_SITUACAO_CANDIDATURA", "CD_DETALHE_SITUACAO_CAND", "NR_PARTIDO", "SQ_COLIGACAO", "CD_SIT_TOT_TURNO", "QT_VOTOS_NOMINAIS") 
+categoricalDataSet <- dataset[!categoricalColumns]
 cl <- kmodes(categoricalDataSet, modes=3, iter.max = 10, weighted = FALSE, fast = TRUE)
+
+plot(jitter(x), col = cl$cluster)
+points(cl$modes, col = 1:5, pch = 8)
 
 install.packages("fastDummies") # install dummies
 library(fastDummies) # import dummies
