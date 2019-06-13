@@ -19,9 +19,8 @@ for (file in TSEFiles){
   if (!exists("dataset")){
     dataset <- read.csv(file, sep=";", header=TRUE, stringsAsFactors=FALSE, fileEncoding="latin1")
   }
-  
   # if the merged dataset does exist, append to it
-  if (exists("dataset")){
+  else if (exists("dataset")){
     temp_dataset <- read.csv(file, sep=";", header=TRUE, stringsAsFactors=FALSE, fileEncoding="latin1")
     dataset<-rbind(dataset, temp_dataset)
     rm(temp_dataset)
