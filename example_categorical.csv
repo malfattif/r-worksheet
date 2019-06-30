@@ -1,5 +1,6 @@
-UF,cidade
-SC,Florianópolis
-SC,Tubarão
-RJ,Macaé
-RJ,Rio de janeiro
+UF,cidade,codigo_regiao
+SC,Florianópolis, 1
+SC,Tubarão, 1
+RJ,Macaé, 2
+RJ,Rio de janeiro, 2
+CE,Recife, 3
