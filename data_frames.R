@@ -17,10 +17,6 @@ for (file in TSEFiles) {
 
 
 
-teste <-dataset %>% filter(DS_CARGO == "Prefeito")
-
-teste <- dataset[dataset$DS_CARGO == "Prefeito", ]
-
 nrow(dataset) # number of rows of data frame
 head(dataset[1,]) # first 5 rows of data frame
 tail(dataset[1, 1:10]) # last 5 rows of data frame get only 10 columns
@@ -86,7 +82,6 @@ print(nrow(sampleDataset)) # 25% of dataset (random data)
 #USIN DPLYR TO MANAGE DATAFRAMES
 install.packages("dplyr")
 
-
 #GETTING A RANDOM SAMPLE FROM DATAFRAME WITH LIBRARY
 sample2000 = sample_n(dataset, 2000) #GETTING 25% PERCENT FROM THE ORIGINAL DATASET
 
@@ -104,9 +99,6 @@ datasetMoreThan70kVotes <- filter(dataset, QT_VOTOS_NOMINAIS > 70000)
 datasetElectedMoreThan70kVotes <- filter(dataset, QT_VOTOS_NOMINAIS > 70000, DS_SIT_TOT_TURNO == 'ELEITO')
 
 datasetPTandPmdb <- filter(dataset, SG_PARTIDO == "PT" | SG_PARTIDO == 'PMDB')
-
-o <- filter(dataset, DS_CARGO == "Prefeito")
-
 
 datasetPTandPmdb <- filter(dataset, SG_PARTIDO %in% c("PT", 'PMDB'))
 
