@@ -1,37 +1,4 @@
-# CRIANDO FUNÇÕESES
-# ESTRUTURAS CONDICIONAIS
-# LA??ES DE REPETI??O
-# USANDO E IMPORTANDO BIBLIOTECAS
-# WORK DIRECTORY 
-# LEITURA DE ARQUIVOS
-# UNIFICA??O EM UM DATAFRAME
-# MANIPULA??O E FILTRAGEM DE DATAFRAMES
-# COME?AREMOS EM ORDEM DESCENDENTE POR ANO (TEORICAMENTE TEM MAIS DADOS)
-# VARI?VEIS CATEGORICAS
 
-library(dplyr)
-
-dfWithTseCode <- localElections2016 %>%
-  mutate(tse_code = as.character(as.numeric(SIGLA_UE)))
-
-library(codesBR)
-teste <- ibge_from_tse(dfWithTseCode, tse_code)
-
-# 
-# cods <- dplyr::select(.data = codigo_ibge_tse, .data$cod_tse, .data$cod_ibge)
-
-#
-#
-#
-#
-#
-#
-lapply(c("esquisse", "ggplot2", "dplyr"), require, character.only = TRUE)
-#
-#
-setwd("C:/Users/1513 IRON/Desktop/Projetos/ProjetosGIT/r-worksheet/votacao") # SETING WORK DIRECTORY
-getwd() # GET WORKING DIRECTORY
-#
 TSEFiles = list.files(path = ".", pattern = "*.csv|*.txt")  #GET ALL TXT AN CSV FILES
 
 rm(dataset)
@@ -293,9 +260,10 @@ ggplot(data=votosComPercentual, aes(x=votos.X, y=votos.Y))+ geom_point() + geom_
 #CORREÇÃO NÃO IMPLICA EM CAUSALIDADE!!
 
 
-competitividade <- data.frame("quantidade"=c(faixa_20, faixa_20_50, faixa_50_80, faixa_maior_80),
+competitividade <- data.frame("quantidade"=c(faixa_20, faixa_20_50,
+                                             faixa_50_80, faixa_maior_80),
                               "faixa"=c("< 20%", "20 ~ 50%", "50 ~ 80%", " > 80%"),
-                               "teste"=c("1", "0", "0", "1"))
+                               "teste"=c("1", "2", "3", "4"))
 
 plotCompetitividade <- ggplot(data=competitividade, aes(x=faixa, y=quantidade))
 plotCompetitividade <- plotCompetitividade + geom_col(fill="darkgreen")
@@ -304,11 +272,10 @@ plotCompetitividade <- plotCompetitividade + ggtitle("Indice de competitividade"
 plotCompetitividade
 
 install.packages("esquisse")
-#
 esquisser(viewer = "browser", data=competitividade)
 
-# # GOOGLE VISUALIZATION
 
+# GOOGLE VISUALIZATION
 install.packages("googleVis")
 library(googleVis)
 
@@ -519,3 +486,13 @@ dadosEleicoes <- lapply(anos, vote_mun_zone_local)
 x3 <- lapply(anos, elections_rda,  level = "local", archive = "candidate")
 
 allEleicoes <- bind_rows(x3)
+''
+y(reshape2)
+library(plotly)
+
+p <- ggplot(tips, aes(x=total_bill)) + geom_histogram(binwidth=2,colour="white")
+
+# Histogram of total_bill, divided by sex and smoker
+p <- p + facet_grid(sex ~ smoker)
+
+p <- ggplotly(p)
